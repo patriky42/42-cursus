@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabastid <pabastid@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 17:21:15 by pabastid          #+#    #+#             */
-/*   Updated: 2022/09/27 13:48:58 by pabastid         ###   ########.fr       */
+/*   Created: 2022/09/30 17:29:11 by pabastid          #+#    #+#             */
+/*   Updated: 2022/10/04 18:15:23 by pabastid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+void	ft_putchar_fd(char c, int fd)
 {
-	int		i;
-	char	*a;
-
-	i = 0;
-	a = (char *)s;
-	while (s[i] != '\0')
-	{
-		if (s[i] == (unsigned char)c)
-			return (&a[i]);
-		i++;
-	}
-	if ((unsigned char)c == '\0')
-		return (&a[i]);
-	else
-		return (NULL);
+	write(fd, &c, 1);
 }
 /*int	main(void)
 {
-	char s[] = "patito";
-	printf("%s\n", ft_strchr(s, 'a'));
+	//int fd = 1;
+	char c = 'a';
+	//fd = open("test.txt", O_RONLY);
+	//ft_putchar_fd (c, fd);
+	ft_putchar_fd (c, 1);
 	return (0);
 }*/

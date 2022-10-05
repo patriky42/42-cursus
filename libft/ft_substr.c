@@ -1,44 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabastid <pabastid@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 15:56:41 by pabastid          #+#    #+#             */
-/*   Updated: 2022/09/21 16:26:32 by pabastid         ###   ########.fr       */
+/*   Created: 2022/09/29 13:58:30 by pabastid          #+#    #+#             */
+/*   Updated: 2022/10/03 19:03:28 by pabastid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int	i;
-	int	sign;
-	int	res;
+	size_t	max;
+	char	*sub;
 
-	i = 0;
-	sign = 1;
-	res = 0;
-	while (str[i] == 32 || (str[i] > 8 && str[i] < 14))
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (str[i] >= 48 && str[i] <= 57)
-	{
-		res = (str[i] - '0') + (res * 10);
-		i++;
-	}
-	return (res * sign);
+	if (!s)
+		return (NULL);
+	max = ft_strlen(s);
+	if (len > (max - start))
+		len = max - start;
+	if (start > max)
+		len = 0;
+	sub = (char *)malloc(sizeof(char) * (len + 1));
+	if (sub == NULL)
+		return (NULL);
+	if (len == 0)
+		sub[0] = '\0';
+	else
+		ft_strlcpy(sub, &((char *)s)[start], len + 1);
+	return (sub);
 }
 /*int	main(void)
 {
-	char str[] = "5876";
-	printf("%d\n", ft_atoi(str));
+	char q[] = "hola";
+	printf("%s\n", ft_substr(q, 2, 3));
 	return (0);
 }*/

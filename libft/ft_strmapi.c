@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabastid <pabastid@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 13:58:30 by pabastid          #+#    #+#             */
-/*   Updated: 2022/09/30 12:06:23 by pabastid         ###   ########.fr       */
+/*   Created: 2022/10/05 17:40:04 by pabastid          #+#    #+#             */
+/*   Updated: 2022/10/05 18:08:06 by pabastid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	size_t	max;
-	char	*sub;
+	unsigned int	i;
+	char			*str;
 
-	if (!s)
+	i = 0;
+	if (!s || !f)
 		return (NULL);
-	max = ft_strlen(s);
-	if (len > (max - start))
-		len = max - start;
-	if (start > max)
-		len = 0;
-	sub = (char *)malloc(sizeof(char) * (len + 1));
-	if (sub == NULL)
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!str)
 		return (NULL);
-	if (len == 0)
-		sub[0] = '\0';
-	else
-		ft_strlcpy(sub, &((char *)s)[start], len + 1);
-	return (sub);
+	while (s[i] && i < ft_strlen(s))
+	{
+		str[i] = f(i, s[i]);
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }
-/*int	main(void)
-{
-	char q[] = "hola";
-	printf("%s\n", ft_substr(q, 2, 3));
-	return (0);
-}*/

@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabastid <pabastid@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/30 17:29:11 by pabastid          #+#    #+#             */
-/*   Updated: 2022/09/30 18:11:39 by pabastid         ###   ########.fr       */
+/*   Created: 2022/10/05 18:11:05 by pabastid          #+#    #+#             */
+/*   Updated: 2022/10/05 18:18:02 by pabastid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putchar_fd(char c, int fd)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	write(fd, &c, 1);
+	unsigned int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		f(i, &s[i]);
+		i++;
+	}
 }
-/*int	main(void)
-{
-	//int = fd;
-	char c = 'a';
-	//fd = open("test.txt", O_RONLY);
-	//ft_putchar_fd (c, fd);
-	ft_putchar_fd (c, 1);
-	return (0);
-}*/
