@@ -6,13 +6,13 @@
 #    By: pabastid <pabastid@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/13 12:54:12 by pabastid          #+#    #+#              #
-#    Updated: 2022/10/21 14:27:37 by pabastid         ###   ########.fr        #
+#    Updated: 2022/10/22 12:27:57 by pabastid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-#HEADER = libftprintf.h
+HEADER = ft_printf.h
 
 SRC =	ft_print_char.c \
 		ft_print_digits.c \
@@ -24,22 +24,23 @@ SRC =	ft_print_char.c \
 		ft_printf.c
 		
 CC = gcc
-OBJ = $(SRC:.c=.o)
+OBJ = $(SRC:%.c=%.o)
 
-DEPS = $(SRC:.c=.d) 
+DEPS = $(SRC:%.c=%.d) 
 
-CFLAGS = -Wall -Wextra -Werror -MMD -g
+CFLAGS = -Wall -Wextra -Werror -MMD
 
 RM = rm -f
 
-#%.o : %.c
-#	$(CC) $(FLAGS) -c $< -o $@
+%.o : %.c
+	$(CC) $(FLAGS) -c $< -o $@
 
 all: $(NAME)
 
 -include $(DEPS)
-$(NAME) : $(OBJ)
-	ar rcs	$(NAME) $(OBJ)
+
+$(NAME) : $(OBJ) $(HEADER)
+	ar -crs	$(NAME) $(OBJ)
 
 clean :
 	$(RM) $(OBJ) 
