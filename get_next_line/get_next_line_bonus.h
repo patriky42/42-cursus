@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabastid <pabastid@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/14 12:43:24 by pabastid          #+#    #+#             */
-/*   Updated: 2022/12/02 12:37:23 by pabastid         ###   ########.fr       */
+/*   Created: 2022/12/06 12:05:19 by pabastid          #+#    #+#             */
+/*   Updated: 2022/12/06 12:21:13 by pabastid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5
@@ -22,6 +22,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <fcntl.h>
+# include <limits.h>
 
 size_t	ft_strlen(const char *str);
 char	*ft_substr(char	const *s, unsigned int start, size_t len);

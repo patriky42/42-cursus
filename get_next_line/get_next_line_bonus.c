@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabastid <pabastid@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/14 13:06:13 by pabastid          #+#    #+#             */
-/*   Updated: 2022/12/02 12:53:53 by pabastid         ###   ########.fr       */
+/*   Created: 2022/12/02 12:53:26 by pabastid          #+#    #+#             */
+/*   Updated: 2022/12/07 12:20:43 by pabastid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*filling_static_storage(int fd, char *storage)
 {
@@ -80,38 +80,63 @@ char	*save_storage(char *storage)
 
 char	*get_next_line(int fd)
 {
-	static char	*storage;
+	static char	*storage[OPEN_MAX];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if ((storage && !ft_strchr(storage, '\n')) || !storage)
-		storage = filling_static_storage(fd, storage);
-	if (!storage)
+	if ((storage[fd] && !ft_strchr(storage[fd], '\n')) || !storage[fd])
+		storage[fd] = filling_static_storage(fd, storage[fd]);
+	if (!storage[fd])
 		return (NULL);
-	line = extract_line(storage);
+	line = extract_line(storage[fd]);
 	if (!line)
 	{
-		free(storage);
+		free(storage[fd]);
 		return (NULL);
 	}
-	storage = save_storage(storage);
+	storage[fd] = save_storage(storage[fd]);
 	return (line);
 }
 
-/*int	main(void)
+int	main(void)
 {
-	int		fd;
+	int		fd[3];
+	int		i;
 	char	*line;
 
-	fd = open("text.txt", O_RDONLY);
-
-	line = get_next_line(fd);
+	i = 0;
+	fd[0] = open("text.txt", O_RDONLY);
+	fd[1] = open("text00.txt", O_RDONLY);
+	fd[2] = open("text01.txt", O_RDONLY);
+	line = get_next_line(fd[i]);
+	printf("\n\n<FIRST TEXT>\n\n");
 	printf("%s", line);
-	while (line != NULL)
+	while (i < 3)
 	{
-		free (line);
-		line = get_next_line(fd);
-		printf("%s", line);
+		if (i > 0)
+			printf("\n\n<NEXT TEXT>\n\n");
+		free(line);
+			line = get_next_line(fd[i]);
+			printf("%s", line);
+			while (line != NULL)
+			{
+				free(line);
+				line = get_next_line(fd[i]);
+				printf("%s", line);
+			}
+			i++;
 	}
-}*/
+
+	while (i< 5)
+	{
+		line = get_next_line(fd[0]);
+		printf("%s", line);
+		line = get_next_line(fd[1]);
+		printf("%s", line);
+		line = get_next_ne(fd[2]);
+		printf("%s", line);
+		i++;
+	}
+	printf("\n\nOPENMAX == %i\n\n", OPEN_MAX);
+}
